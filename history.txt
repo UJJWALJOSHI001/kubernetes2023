@@ -1,0 +1,262 @@
+    1  hostname
+    2  hostnamectl KubeMaster
+    3  hostnamectl --help KubeMaster
+    4  hostnamectl set-hostname KubeMaster
+    5  hostnamectl set-hostname kubemaster
+    6  getenforce 
+    7  setenforce  0
+    8   sed -i 's/SELINUX=enforcing/SELINUX=disabled/'  /etc/selinux/config
+    9  sudo sed -i 's/SELINUX=enforcing/SELINUX=disabled/'  /etc/selinux/config
+   10  sudo modprobe br_netfilter
+   11  sudo echo '1' > /proc/sys/net/bridge/bridge-nf-call-iptables
+   12  sudo -i
+   13  kubectl get nodes
+   14  ls /etc/kubernetes/admin.conf 
+   15  vi /etc/kubernetes/admin.conf 
+   16  sudo vi /etc/kubernetes/admin.conf 
+   17  mkdir .kube
+   18  sudo cp /etc/kubernetes/admin.conf .kube/config
+   19  chown ec2-user:ec2-user .kube/config 
+   20  sudo chown ec2-user:ec2-user .kube/config 
+   21  kubectl get node
+   22  kubectl run --image=nginx
+   23  kubectl run --help
+   24  kubectl run web --image=nginx
+   25  kubectl get pod
+   26  docker container ps
+   27  sudo docker container ps
+   28  sudo docker container ps -a
+   29  kubectl get pod -o wide
+   30  kubectl get nodes
+   31  source <(kubectl comletion bash)
+   32  source <(kubectl completion bash)
+   33  echo "source <(kubectl completion bash)" >> .bashrc 
+   34  kubectl get pod
+   35  history 
+   36  kubectl delete pod web 
+   37  kubeadm token create --print-join-command
+   38  kubectl get nodes 
+   39  kubectl get nodes -n kube-system 
+   40  kubectl get pod -n kube-system 
+   41  kubectl get no
+   42  kubectl run web1 --image=nginx
+   43  kubectl get pod
+   44  kubectl get pod -o wide
+   45  kubectl delete pod web1 
+   46  kubectl get po
+   47  kubectl get pod
+   48  mkdir kubernetes
+   49  cd kubernetes/
+   50  vim pod.yml 
+   51  cat pod.yml 
+   52  kubectl create -f pod.yml 
+   53  kubectl get po
+   54  kubectl get po -o wide
+   55  curl 192.168.22.130 
+   56  kubectl delete pod web2 
+   57  kubectl create -f pod.yml 
+   58  kubectl delete pod web2 
+   59  kubectl apply -f pod.yml 
+   60  kubectl get po -o wide
+   61  curl 192.168.22.132
+   62  kubectl get pod web2 -o yaml
+   63  kubectl run web1 --image=httd --dry-run=client 
+   64  kubectl  get po
+   65  kubectl run web1 --image=httpd --dry-run=client -o yaml
+   66  vi p1.yml 
+   67  kubectl run web1 --image=httpd --help
+   68  kubectl get po
+   69  vi .kube/config 
+   70  kubectl get po
+   71  kubectl describe pod web2 
+   72  kubectl exec -it web2 bash
+   73  kubectl exec -it web2 -- bash
+   74  kubectl api-resources 
+   75  kubectl api-resources | grep pod
+   76  kubectl api-resources | grep rs
+   77  kubectl api-resources | grep replicacont
+   78  kubectl api-resources | grep replicaco
+   79  kubectl api-resources | grep replica
+   80  cd kubernetes/
+   81  vi rc.yml
+   82  vi pod.yml 
+   83  vi rc.yml
+   84  kubectl delete pod web2 
+   85  vi pod.yml 
+   86  kubectl apply  -f pod.yml 
+   87  kubectl get po
+   88  kubectl get po --show-labels 
+   89  vi rc.yml
+   90  kubectl apply -f rc.yml 
+   91  kubectl get rc
+   92  kubectl get po --show-labels 
+   93  kubectl delete pod web2 
+   94  kubectl get rc
+   95  kubectl get po --show-labels 
+   96  cat rc.yml 
+   97  kubectl scale replicationcontroller web-app-rc --replicas=2
+   98  kubectl get po --show-labels 
+   99  kubectl scale replicationcontroller web-app-rc --replicas=4
+  100  kubectl get po --show-labels 
+  101  vi rc.yml 
+  102  kubectl create -f rc.yml 
+  103  kubectl apply -f rc.yml 
+  104  kubectl get po --show-labels 
+  105  kubectl  edit rc web-app-rc 
+  106  kubectl get po --show-labels 
+  107  vi rc.yml 
+  108  cd kubernetes/
+  109  ls
+  110  kubectl get po
+  111  kubectl get po --show-labels 
+  112  kubectl run lnb1 --image=httpd
+  113  kubectl get po
+  114  kubectl get po --show-labels 
+  115  ls
+  116  cp rc.yml rs.yml
+  117  kubectl api-resources | grep rs
+  118  vi rs.yml 
+  119  kubectl get po
+  120  kubectl apply -f rs.yml 
+  121  vi rs.yml 
+  122  kubectl apply -f rs.yml 
+  123  kubectl get po
+  124  kubectl scale replicaset web-app-rs --replicas=0
+  125  kubectl get po
+  126  kubectl scale replicaset web-app-rs --replicas=3
+  127  kubectl get po
+  128  kubectl get po --show-labels 
+  129  kubectl delete rc web-app-rc 
+  130  kubectl get po --show-labels 
+  131  kubectl delete rs web-app-rs
+  132  kubectl get po --show-labels 
+  133  kubectl delete pod lnb1 
+  134  kubectl get po
+  135  kubectl get rc
+  136  kubectl get rs
+  137  cp rs.yml deploy.yml
+  138  kubectl api-resources | grep deploy
+  139  vi deploy.yml 
+  140  kubectl apply -f deploy.yml 
+  141  kubectl get deployments.apps 
+  142  kubectl get rs 
+  143  kubectl get po
+  144  kubectl describe pod web-app-rs-cb4d88bdd-
+  145  kubectl edit deployments.apps web-app-rs 
+  146  kubectl get po
+  147  kubectl get rs
+  148  kubectl rollout history 
+  149  kubectl rollout status deployment/web-app-rs 
+  150  kubectl rollout history deployment/web-app-rs 
+  151  kubectl describe pod web-app-rs-7ff668c646-nctck 
+  152  kubectl rollout undo deployment/web-app-rs 
+  153  kubectl rollout history deployment/web-app-rs 
+  154  kubectl rollout status deployment/web-app-rs 
+  155  kubectl get po
+  156  kubectl get rs
+  157  kubectl describe pod web-app-rs-cb4d88bdd-qcvn8 
+  158  kubectl set image deployment/web-app-rs nginx=nginx:1.16.1 --help
+  159  kubectl set image deployment/web-app-rs nginx=nginx:1.16.1 --record
+  160  kubectl describe pod web-app-rs-cb4d88bdd-qcvn8 
+  161  kubectl set image deployment/web-app-rs web-app-rs=nginx:1.16.1 --record
+  162  kubectl describe deployments.apps web-app-rs
+  163  kubectl set image deployment/web-app-rs web=nginx:1.16.1 --record
+  164  kubectl rollout status deployment/web-app-rs 
+  165  kubectl rollout history deployment/web-app-rs 
+  166  ls
+  167  cd kubernetes/
+  168  kubectl rollout history deployment/web-app-rs 
+  169  kubectl annotate deployments.apps web-app-rs kubernetes.io/change-cause="image updated to 1.16.1"
+  170  kubectl rollout history deployment/web-app-rs 
+  171  kubectl get namespaces 
+  172  kubectl get po
+  173  kubectl get po -n kube-node-lease 
+  174  kubectl get po -n kube-public 
+  175  kubectl get po -n kube-system 
+  176  kubectl get rc -n kube-system 
+  177  kubectl get rs -n kube-system 
+  178  kubectl get deployment -n kube-system 
+  179  ll
+  180  kubectl apply -f deploy.yml -n kube-public 
+  181  kubectl get deployment -n kube-public 
+  182  kubectl get namespaces 
+  183  kubectl create namespace dev
+  184  kubectl get namespaces 
+  185  kubectl create namespace dev --dry-run=clinet -o yaml > name.yml
+  186  kubectl create namespace dev --dry-run=client -o yaml > name.yml
+  187  ls
+  188  vi name.yml 
+  189  kubectl apply -f name.yml 
+  190  vi name.yml 
+  191  kubectl apply -f name.yml 
+  192  kubectl get ns
+  193  kubectl run u1 --image=ubuntu
+  194  kubectl get po
+  195  kubectl logs u1 
+  196  kubectl describe po u1
+  197  kubectl run u2 --image=ubuntu --command bash
+  198  kubectl get po
+  199  kubectl run u3 --image=ubuntu --command "sleep 100"
+  200  kubectl get po
+  201  kubectl logs pods/u3
+  202  kubectl describe pod u3 
+  203  kubectl run --help
+  204  kubectl run -it ubuntu1 --image ubuntu --command sleep 1000
+  205  kubectl get deploy
+  206  kubectl rollout history 
+  207  kubectl rollout history deployment web-app-rs 
+  208  kubectl set image deployment/web-app-rs web=nginx
+  209  kubectl rollout history deployment web-app-rs 
+  210  kubectl set image deployment/web-app-rs web=httpd
+  211  kubectl rollout history deployment web-app-rs 
+  212  kubectl annotate deployments.apps web-app-rs kubernetes.io/change-cause="image updated to ubuntu"
+  213  kubectl rollout history deployment web-app-rs 
+  214  kubectl annotate deployments.apps web-app-rs kubernetes.io/change-cause="image updated to nginx" --revison=2
+  215  kubectl annotate deployments.apps web-app-rs kubernetes.io/change-cause="image updated to nginx" --help
+  216  kubectl get po
+  217  kubectl run -it uv1 --image=ubuntu --command bash
+  218  kubectl get po
+  219  cat .kube/config 
+  220  kubectl get namespaces 
+  221  kubectl get po
+  222  kubectl describe po  uv1 
+  223  kubectl config set-context --current --namespace=dev
+  224  ls .kube/config 
+  225  cat .kube/config 
+  226  cd kubernetes/
+  227  ls
+  228  git
+  229  sudo yum install git 
+  230  cd 
+  231  git clone https://github.com/UJJWALJOSHI001/kubernetes2023.git
+  232  cp -rvf kubernetes/* kubernetes2023/
+  233  cd kubernetes2023/
+  234  ls
+  235  git add *
+  236  git commit -m "adding YAML files"
+  237  git config --global --edit
+  238  git commit --amend --reset-author
+  239  git log
+  240  git push origin main 
+  241  cp deploy.yml daemonset.yml
+  242  kubectl api-resources | grep daemon
+  243  vi daemonset.yml 
+  244  kubectl create -f daemonset.yml 
+  245  kubectl get ds
+  246  kubectl get node
+  247  kubectl describe nodes ip-172-31-14-223.ap-south-1.compute.internal 
+  248  vi daemonset.yml 
+  249  cp daemonset.yml daemonset1.yml 
+  250  vi daemonset
+  251  vi daemonset1.yml 
+  252  vi daemonset.yml 
+  253  vim daemonset1.yml 
+  254  kubectl apply -f daemonset1.yml 
+  255  kubectl get ds
+  256  kubectl get po
+  257  kubectl get po -o wide
+  258  git add daemonset.yml daemonset1.yml 
+  259  git commit -m "Adding daemon set"
+  260  git push origin main 
+  261  history 
+  262  history > history.txt
